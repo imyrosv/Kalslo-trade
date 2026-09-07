@@ -1,0 +1,151 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Typo : Archivo Narrow pour titres + corps, Inter Tight pour labels/badges/nav */
+  --font-sans: var(--font-archivo-narrow);
+  --font-label: var(--font-inter-tight);
+  --font-heading: var(--font-sans);
+
+  /* Couleurs de marque Kalslo */
+  --color-kalslo-mint: #00CE8E;
+  --color-kalslo-deep: #014737;
+  --color-kalslo-violet: #8C52FF;
+  --color-kalslo-ink: #1A1A1A;
+
+  /* Couleurs fonctionnelles de statut (Trade State / obligations) */
+  --color-status-settled: #00CE8E;
+  --color-status-risk: #F5A623;
+  --color-status-blocked: #E5484D;
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A1A;
+
+  /* Primary = mint, texte foncé dessus pour un bon contraste */
+  --primary: #00CE8E;
+  --primary-foreground: #014737;
+
+  --secondary: #E9FBF4;
+  --secondary-foreground: #014737;
+
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.45 0 0);
+
+  /* Accent = violet, réservé aux éléments qu'on veut vraiment faire ressortir */
+  --accent: #8C52FF;
+  --accent-foreground: #FFFFFF;
+
+  --destructive: #E5484D;
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: #00CE8E;
+
+  --chart-1: #00CE8E;
+  --chart-2: #8C52FF;
+  --chart-3: #014737;
+  --chart-4: #F5A623;
+  --chart-5: #E5484D;
+
+  --radius: 0.5rem;
+
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-primary: #00CE8E;
+  --sidebar-primary-foreground: #014737;
+  --sidebar-accent: #E9FBF4;
+  --sidebar-accent-foreground: #014737;
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: #00CE8E;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: #00CE8E;
+  --primary-foreground: #014737;
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: #8C52FF;
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: #E5484D;
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: #00CE8E;
+  --chart-1: #00CE8E;
+  --chart-2: #8C52FF;
+  --chart-3: #014737;
+  --chart-4: #F5A623;
+  --chart-5: #E5484D;
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: #00CE8E;
+  --sidebar-primary-foreground: #014737;
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: #00CE8E;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
