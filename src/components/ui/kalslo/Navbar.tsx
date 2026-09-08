@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Search, Menu } from "lucide-react";
 import { useLocaleStore } from "@/store/useLocaleStore";
+import { FlagIcon } from "./FlagIcon";
 
 const navLabels = {
   en: {
@@ -70,9 +71,16 @@ export function Navbar() {
 
           <button
             onClick={toggleLocale}
-            className="font-label text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
+            className="flex items-center gap-1.5 transition-opacity hover:opacity-70"
+            aria-label="Toggle language"
           >
-            {locale === "en" ? "FR" : "EN"}
+            <FlagIcon
+              countryCode={locale === "en" ? "fr" : "gb"}
+              className="h-3.5 w-5"
+            />
+            <span className="font-label text-xs font-semibold text-muted-foreground">
+              {locale === "en" ? "FR" : "EN"}
+            </span>
           </button>
 
           <button className="hidden text-sm font-medium text-foreground hover:text-kalslo-mint sm:block">

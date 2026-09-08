@@ -14,6 +14,7 @@ export type TradeState = {
   contractValue: string;
   currenciesLabel: string;
   currencies: string;
+  currencyCodes: string[];
   participantsLabel: string;
   participants: string[];
   currentStage: TradeStage;
@@ -75,14 +76,12 @@ export const settlementStateLabels: Record<"en" | "fr", Record<SettlementState, 
 
 export const stageOrder = stages;
 
-// Point 17 du document : gris = proposed, bleu = in transit/active, mint = settled
 export function getStageColorClass(stage: TradeStage): string {
   if (stage === "proposed") return "text-muted-foreground";
   if (stage === "settled") return "text-kalslo-mint";
   return "text-status-active";
 }
 
-// Couleurs pour les 8 états de règlement, alignées sur la palette du point 17
 export function getSettlementColorClass(state: SettlementState): string {
   switch (state) {
     case "settled":
@@ -111,6 +110,7 @@ export const tradeStatesContent: Record<"en" | "fr", Record<string, TradeState>>
       contractValue: "€250,000",
       currenciesLabel: "Currencies",
       currencies: "EUR / AED",
+      currencyCodes: ["eu", "ae"],
       participantsLabel: "Participants",
       participants: ["Buyer", "Seller", "Supplier", "Agent"],
       currentStage: "shipped",
@@ -135,6 +135,7 @@ export const tradeStatesContent: Record<"en" | "fr", Record<string, TradeState>>
       contractValue: "250 000 €",
       currenciesLabel: "Devises",
       currencies: "EUR / AED",
+      currencyCodes: ["eu", "ae"],
       participantsLabel: "Participants",
       participants: ["Acheteur", "Vendeur", "Fournisseur", "Agent"],
       currentStage: "shipped",

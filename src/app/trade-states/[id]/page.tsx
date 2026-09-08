@@ -11,8 +11,14 @@ import {
   type TradeState,
 } from "@/lib/content/trade-states";
 import { TradeStateProgress } from "@/components/ui/kalslo/TradeStateProgress";
-import { ObligationBadge } from "@/components/ui/kalslo/ObligationBadge";
 import { TrustBadge } from "@/components/ui/kalslo/TrustBadge";
+import { FlagIcon } from "@/components/ui/kalslo/FlagIcon";
+import { ObligationsTable } from "@/components/ui/kalslo/ObligationsTable";
+
+const tableLabels = {
+  en: { obligation: "Obligation", trigger: "Trigger", status: "Status" },
+  fr: { obligation: "Obligation", trigger: "Déclencheur", status: "Statut" },
+};
 
 export default function TradeStatePage({
   params,
@@ -68,9 +74,14 @@ export default function TradeStatePage({
             <p className="font-label text-xs text-muted-foreground">
               {tradeState.currenciesLabel}
             </p>
-            <p className="mt-1 font-semibold text-foreground">
-              {tradeState.currencies}
-            </p>
+            <div className="mt-1 flex items-center gap-1.5">
+              {tradeState.currencyCodes.map((code) => (
+                <FlagIcon key={code} countryCode={code} className="h-3.5 w-5" />
+              ))}
+              <p className="font-semibold text-foreground">
+                {tradeState.currencies}
+              </p>
+            </div>
           </div>
           <div>
             <p className="font-label text-xs text-muted-foreground">
@@ -98,25 +109,13 @@ export default function TradeStatePage({
         </div>
 
         <div className="mt-12">
-          <p className="font-label text-xs text-muted-foreground">
+          <p className="mb-3 font-label text-xs text-muted-foreground">
             {tradeState.obligationsLabel}
           </p>
-          <div className="mt-3 divide-y divide-border rounded-md border border-border">
-            {tradeState.obligations.map((ob) => (
-              <div
-                key={ob.label}
-                className="flex items-center justify-between gap-4 p-4"
-              >
-                <div>
-                  <p className="text-foreground">{ob.label}</p>
-                  <p className="mt-0.5 text-sm text-muted-foreground">
-                    {ob.trigger}
-                  </p>
-                </div>
-                <ObligationBadge status={ob.status} />
-              </div>
-            ))}
-          </div>
+          <ObligationsTable
+            obligations={tradeState.obligations}
+            labels={tableLabels[locale]}
+          />
         </div>
       </article>
     </main>
