@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useLocaleStore } from "@/store/useLocaleStore";
 import { eventsContent, type TradeEvent } from "@/lib/content/events";
 import { StatusPill } from "@/components/ui/kalslo/StatusPill";
+import { TrustBadge } from "@/components/ui/kalslo/TrustBadge";
 
 export default function EventPage({
   params,
@@ -28,7 +29,6 @@ export default function EventPage({
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-
       <article className="mx-auto max-w-2xl px-6 py-12 md:px-0">
         <Link
           href="/"
@@ -39,6 +39,7 @@ export default function EventPage({
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <StatusPill status={event.status} />
+          <TrustBadge variant="verified_event" locale={locale} />
           <span className="font-label text-xs text-muted-foreground">
             {event.type}
           </span>
@@ -49,7 +50,7 @@ export default function EventPage({
         </h1>
 
         <p className="mt-3 font-label text-xs text-muted-foreground">
-          Last updated: {event.lastUpdated} · {event.sourceStatus}
+          Last updated: {event.lastUpdated}
         </p>
 
         <div className="mt-10 space-y-8 border-t border-border pt-10">

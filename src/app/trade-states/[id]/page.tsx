@@ -6,6 +6,7 @@ import { useLocaleStore } from "@/store/useLocaleStore";
 import { tradeStatesContent, type TradeState } from "@/lib/content/trade-states";
 import { TradeStateProgress } from "@/components/ui/kalslo/TradeStateProgress";
 import { ObligationBadge } from "@/components/ui/kalslo/ObligationBadge";
+import { TrustBadge } from "@/components/ui/kalslo/TrustBadge";
 
 export default function TradeStatePage({
   params,
@@ -29,7 +30,6 @@ export default function TradeStatePage({
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-
       <article className="mx-auto max-w-2xl px-6 py-12 md:px-0">
         <Link
           href="/"
@@ -38,7 +38,11 @@ export default function TradeStatePage({
           ← {tradeState.backLink}
         </Link>
 
-        <p className="mt-6 font-label text-xs text-muted-foreground">
+        <div className="mt-6">
+          <TrustBadge variant="illustrative_trade_flow" locale={locale} />
+        </div>
+
+        <p className="mt-4 font-label text-xs text-muted-foreground">
           TRADE STATE — {id.toUpperCase()}
         </p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">
@@ -108,10 +112,6 @@ export default function TradeStatePage({
             ))}
           </div>
         </div>
-
-        <p className="mt-8 font-label text-xs italic text-muted-foreground">
-          {tradeState.illustrativeNote}
-        </p>
       </article>
     </main>
   );

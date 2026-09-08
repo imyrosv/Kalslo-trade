@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Ship, TriangleAlert, ArrowRight } from "lucide-react";
 import { useLocaleStore } from "@/store/useLocaleStore";
 import { homeContent } from "@/lib/content/home";
+import { TrustBadge } from "@/components/ui/kalslo/TrustBadge";
 
 export default function Home() {
   const { locale } = useLocaleStore();
@@ -50,12 +51,8 @@ export default function Home() {
                 <Ship className="h-5 w-5 text-kalslo-deep" strokeWidth={1.75} />
               </div>
               <div className="flex flex-wrap justify-end gap-2">
-                <span className="rounded-full border border-kalslo-mint/40 px-3 py-1 font-label text-xs text-kalslo-deep">
-                  {t.badges.verifiedEvent}
-                </span>
-                <span className="rounded-full bg-kalslo-violet px-3 py-1 font-label text-xs text-white">
-                  {t.badges.kalsloAnalysis}
-                </span>
+                <TrustBadge variant="verified_event" locale={locale} />
+                <TrustBadge variant="kalslo_analysis" locale={locale} />
               </div>
             </div>
 
