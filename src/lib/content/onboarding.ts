@@ -1,26 +1,24 @@
 export const onboardingContent = {
   en: {
-    title: "Get to know Kalslo",
-    subtitle: "A few things to explore before you're fully up to speed.",
-    steps: {
-      state: { label: "Explore Kalslo State", description: "See what's moving, blocked or settling right now" },
-      corridors: { label: "Check a corridor", description: "Understand a real trade route between two regions" },
-      tradeStates: { label: "Follow a Trade State", description: "See how a contract moves from proposal to settlement" },
-      signals: { label: "Read a settlement signal", description: "Understand how Kalslo reads risk on a corridor" },
-    },
+    kicker: "Kalslo Briefing",
+    title: "The live state of global commerce, in 30 seconds",
+    whatKalsloTracksLabel: "What Kalslo tracks",
+    whatKalsloTracks:
+      "A shipping delay, a customs hold, a route disruption — each one changes the obligations tied to it: payments, deliveries, guarantees. Kalslo makes that chain visible.",
+    demoLabel: "A Trade State, from proposal to settlement",
+    demoCaption: "This is DEMO-0001 — an illustrative contract moving through its full lifecycle.",
     cta: "Start exploring",
-    dismiss: "Maybe later",
+    dismiss: "Skip briefing",
   },
   fr: {
-    title: "Découvrir Kalslo",
-    subtitle: "Quelques pages à explorer pour bien comprendre le système.",
-    steps: {
-      state: { label: "Explorer Kalslo State", description: "Voir ce qui bouge, bloque ou se règle en ce moment" },
-      corridors: { label: "Consulter un corridor", description: "Comprendre une route commerciale réelle entre deux régions" },
-      tradeStates: { label: "Suivre un Trade State", description: "Voir comment un contrat évolue de la proposition au règlement" },
-      signals: { label: "Lire un signal de règlement", description: "Comprendre comment Kalslo évalue le risque sur un corridor" },
-    },
+    kicker: "Briefing Kalslo",
+    title: "L'état en direct du commerce mondial, en 30 secondes",
+    whatKalsloTracksLabel: "Ce que suit Kalslo",
+    whatKalsloTracks:
+      "Un retard d'expédition, un blocage douanier, une route perturbée — chacun modifie les obligations qui y sont liées : paiements, livraisons, garanties. Kalslo rend cette chaîne visible.",
+    demoLabel: "Un Trade State, de la proposition au règlement",
+    demoCaption: "Voici DEMO-0001 — un contrat illustratif qui parcourt tout son cycle de vie.",
     cta: "Commencer l'exploration",
-    dismiss: "Plus tard",
+    dismiss: "Passer le briefing",
   },
-} as const;
+};

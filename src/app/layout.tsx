@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo_Narrow, Inter_Tight } from "next/font/google";
 import { Navbar } from "@/components/ui/kalslo/Navbar";
-import { OnboardingTracker } from "@/components/ui/kalslo/OnboardingTracker";
 import { OnboardingModal } from "@/components/ui/kalslo/OnboardingModal";
 import "./globals.css";
 
@@ -38,7 +37,6 @@ export default function RootLayout({
       <body className={`${archivoNarrow.variable} ${interTight.variable} antialiased`}>
         <Navbar />
         {children}
-        <OnboardingTracker />
         <OnboardingModal />
       </body>
     </html>

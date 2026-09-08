@@ -22,6 +22,7 @@ import { StatusPill } from "@/components/ui/kalslo/StatusPill";
 import { CategoryFilter } from "@/components/ui/kalslo/CategoryFilter";
 import { CategoryIcon } from "@/components/ui/kalslo/CategoryIcon";
 import { TradeStateProgress } from "@/components/ui/kalslo/TradeStateProgress";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 export default function Home() {
   const { locale } = useLocaleStore();
@@ -215,17 +216,13 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="rounded-md border border-dashed border-border p-4">
-              <div className="flex items-center gap-2">
-                <Info className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.75} />
-                <p className="font-label text-xs uppercase tracking-widest text-muted-foreground">
-                  {t.sidebar.observationModeTitle}
-                </p>
-              </div>
-              <p className="mt-2 text-xs text-muted-foreground">
-                {t.sidebar.observationModeText}
-              </p>
-            </div>
+            <Alert>
+              <Info className="h-4 w-4" />
+              <AlertTitle className="font-label text-xs uppercase tracking-widest">
+                {t.sidebar.observationModeTitle}
+              </AlertTitle>
+              <AlertDescription>{t.sidebar.observationModeText}</AlertDescription>
+            </Alert>
           </div>
         </div>
 
