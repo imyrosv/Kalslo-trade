@@ -3,7 +3,13 @@
 import { use } from "react";
 import Link from "next/link";
 import { useLocaleStore } from "@/store/useLocaleStore";
-import { tradeStatesContent, type TradeState } from "@/lib/content/trade-states";
+import {
+  tradeStatesContent,
+  stageLabels,
+  settlementStateLabels,
+  getSettlementColorClass,
+  type TradeState,
+} from "@/lib/content/trade-states";
 import { TradeStateProgress } from "@/components/ui/kalslo/TradeStateProgress";
 import { ObligationBadge } from "@/components/ui/kalslo/ObligationBadge";
 import { TrustBadge } from "@/components/ui/kalslo/TrustBadge";
@@ -70,8 +76,8 @@ export default function TradeStatePage({
             <p className="font-label text-xs text-muted-foreground">
               {tradeState.settlementStateLabel}
             </p>
-            <p className="mt-1 font-semibold text-status-risk">
-              {tradeState.settlementState}
+            <p className={`mt-1 font-semibold ${getSettlementColorClass(tradeState.settlementState)}`}>
+              {settlementStateLabels[locale][tradeState.settlementState]}
             </p>
           </div>
         </div>

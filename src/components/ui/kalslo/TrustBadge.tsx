@@ -5,10 +5,17 @@ export type TrustBadgeVariant =
   | "kalslo_network_data";
 
 const variantStyles: Record<TrustBadgeVariant, string> = {
-  verified_event: "border border-kalslo-mint/40 text-kalslo-deep",
-  kalslo_analysis: "bg-kalslo-violet text-white",
-  illustrative_trade_flow: "border border-dashed border-muted-foreground/40 text-muted-foreground",
-  kalslo_network_data: "border border-kalslo-deep/30 bg-kalslo-deep/5 text-kalslo-deep",
+  verified_event: "bg-kalslo-mint/10 text-kalslo-deep",
+  kalslo_analysis: "bg-kalslo-violet/10 text-kalslo-violet",
+  illustrative_trade_flow: "bg-muted text-muted-foreground",
+  kalslo_network_data: "bg-kalslo-deep/10 text-kalslo-deep",
+};
+
+const dotColors: Record<TrustBadgeVariant, string> = {
+  verified_event: "bg-kalslo-mint",
+  kalslo_analysis: "bg-kalslo-violet",
+  illustrative_trade_flow: "bg-muted-foreground",
+  kalslo_network_data: "bg-kalslo-deep",
 };
 
 const labels: Record<"en" | "fr", Record<TrustBadgeVariant, string>> = {
@@ -35,8 +42,9 @@ export function TrustBadge({
 }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full px-3 py-1 font-label text-xs ${variantStyles[variant]}`}
+      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-label text-xs font-semibold ${variantStyles[variant]}`}
     >
+      <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${dotColors[variant]}`} />
       {labels[locale][variant]}
     </span>
   );

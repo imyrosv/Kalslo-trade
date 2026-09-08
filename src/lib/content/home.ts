@@ -1,42 +1,52 @@
 export const homeContent = {
   en: {
-    heroTitle: "The live state of global commerce",
-    heroSubtitle:   "Every shipment, contract and payment leaves a trace. Kalslo tracks what's moving, what's blocked, and what settles next.",
-    heroCta: "Explore Kalslo State",
-    statusLine: "Public beta — monitoring selected global trade events",
-    whatChangedLabel: "What changed",
-    event: {
-      title: "Strait of Hormuz — Shipping pressure remains elevated",
-      description:
-        "Vessel traffic has remained below the recent 10-day average.",
-      impactLabel: "Settlement impact",
-      impact:
-        "Delivery evidence may be delayed. Conditional payments can remain locked. FX exposure can extend.",
-      cta: "View event",
+    pageEyebrow: "Kalslo State",
+    pageTitle: "What is moving, what is blocked",
+    stateExplanationLabel: "State explanation",
+    tradeFlowLabel: "Trade flow",
+    settlementLabel: "Settlement",
+    viewCorridor: "View corridor",
+    viewAffectedStates: "View affected states",
+    updatedRecently: "Updated recently",
+    sidebar: {
+      activeCorridorsLabel: "Active corridors",
+      moreCorridorsSoon: "More corridors coming soon.",
+      obligationWatchLabel: "Obligation watch",
+      observationModeTitle: "Public observation mode",
+      observationModeText:
+        "Kalslo.trade is currently in public observation mode. Follow the state layer as it expands.",
     },
-    badges: {
-      verifiedEvent: "Verified event",
-      kalsloAnalysis: "Kalslo analysis",
+    sections: {
+      activeStateChanges: "Active state changes",
+      corridorsUnderObservation: "Corridors under observation",
+      tradeStatesInMotion: "Trade states in motion",
+      obligationsRequiringAttention: "Obligations requiring attention",
+      learnTheSettlementLayer: "Learn the settlement layer",
     },
   },
   fr: {
-    heroTitle: "L'état en direct du commerce mondial",
-    heroSubtitle:   "Chaque expédition, chaque contrat et chaque paiement laisse une trace. Kalslo suit ce qui bouge, ce qui bloque et ce qui se règle ensuite.",
-    heroCta: "Explorer Kalslo State",
-    statusLine: "Bêta publique — suivi d'événements commerciaux mondiaux sélectionnés",
-    whatChangedLabel: "Ce qui a changé",
-    event: {
-      title: "Détroit d'Ormuz — La pression sur le transport maritime reste élevée",
-      description:
-        "Le trafic de navires est resté sous la moyenne des 10 derniers jours.",
-      impactLabel: "Impact sur le règlement",
-      impact:
-        "Les preuves de livraison peuvent être retardées. Les paiements conditionnels peuvent rester verrouillés. L'exposition au change peut s'étendre.",
-      cta: "Voir l'événement",
+    pageEyebrow: "Kalslo State",
+    pageTitle: "Ce qui bouge, ce qui bloque",
+    stateExplanationLabel: "Explication de l'état",
+    tradeFlowLabel: "Flux commercial",
+    settlementLabel: "Règlement",
+    viewCorridor: "Voir le corridor",
+    viewAffectedStates: "Voir les états concernés",
+    updatedRecently: "Mis à jour récemment",
+    sidebar: {
+      activeCorridorsLabel: "Corridors actifs",
+      moreCorridorsSoon: "D'autres corridors arrivent bientôt.",
+      obligationWatchLabel: "Suivi des obligations",
+      observationModeTitle: "Mode observation publique",
+      observationModeText:
+        "Kalslo.trade est actuellement en mode observation publique. Suivez la couche d'état à mesure qu'elle s'étend.",
     },
-    badges: {
-      verifiedEvent: "Événement vérifié",
-      kalsloAnalysis: "Analyse Kalslo",
+    sections: {
+      activeStateChanges: "Changements d'état actifs",
+      corridorsUnderObservation: "Corridors sous observation",
+      tradeStatesInMotion: "Trade States en mouvement",
+      obligationsRequiringAttention: "Obligations nécessitant une attention",
+      learnTheSettlementLayer: "Comprendre le règlement",
     },
   },
-} as const;
+};

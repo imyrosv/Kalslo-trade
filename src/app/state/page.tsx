@@ -1,46 +1,74 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useLocaleStore } from "@/store/useLocaleStore";
-import { eventsContent } from "@/lib/content/events";
+import { eventsContent, type EventCategory } from "@/lib/content/events";
+import { emptyCategoryMessage } from "@/lib/content/categories";
 import { StatusPill } from "@/components/ui/kalslo/StatusPill";
+import { CategoryFilter } from "@/components/ui/kalslo/CategoryFilter";
+import { CategoryIcon } from "@/components/ui/kalslo/CategoryIcon";
 
 export default function StateFeedPage() {
   const { locale } = useLocaleStore();
+  const [activeCategory, setActiveCategory] = useState<EventCategory | "all">("all");
   const events = eventsContent[locale];
-  const eventList = Object.entries(events);
+  const eventList = Object.entries(events).filter(
+    ([, event]) => activeCategory === "all" || event.category === activeCategory
+  );
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-
       <section className="mx-auto max-w-2xl px-6 py-12 md:px-0">
-        <p className="font-label text-xs text-muted-foreground">
-          {locale === "en" ? "Kalslo State" : "Kalslo State"}
-        </p>
+        <p className="font-label text-xs text-muted-foreground">Kalslo State</p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">
           {locale === "en"
             ? "What is moving, what is blocked"
             : "Ce qui bouge, ce qui bloque"}
         </h1>
 
-        <div className="mt-10 space-y-4 border-t border-border pt-10">
+        <div className="mt-8">
+          <CategoryFilter
+            locale={locale}
+            active={activeCategory}
+            onChange={setActiveCategory}
+          />
+        </div>
+
+        <div className="mt-8 space-y-4">
+          {eventList.length === 0 && (
+            <p className="py-12 text-center text-muted-foreground">
+              {emptyCategoryMessage[locale]}
+            </p>
+          )}
+
           {eventList.map(([slug, event]) => (
             <Link
               key={slug}
               href={`/state/${slug}`}
-              className="block rounded-md border border-border p-6 transition-colors hover:border-kalslo-mint"
+              className="group block rounded-md border border-border p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-kalslo-mint hover:shadow-md"
             >
               <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="font-label text-xs text-muted-foreground">
-                    {event.type}
-                  </p>
-                  <h2 className="mt-1 text-lg font-semibold tracking-tight">
-                    {event.title}
-                  </h2>
+                <div className="flex items-start gap-3">
+                  <CategoryIcon
+                    category={event.category}
+                    className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground"
+                  />
+                  <div>
+                    <p className="font-label text-xs text-muted-foreground">
+                      {event.type}
+                    </p>
+                    <h2 className="mt-1 text-lg font-semibold tracking-tight">
+                      {event.title}
+                    </h2>
+                  </div>
                 </div>
                 <StatusPill status={event.status} />
               </div>
+
+              <p className="mt-3 flex items-center gap-1 font-label text-xs font-semibold uppercase tracking-widest text-kalslo-mint opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                {locale === "en" ? "View state" : "Voir l'état"} →
+              </p>
             </Link>
           ))}
         </div>

@@ -8,9 +8,10 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* Typo : Archivo Narrow pour titres + corps, Inter Tight pour labels/badges/nav */
+  /* Typo : Archivo Narrow pour titres + corps, Inter Tight pour labels/badges/nav, Asap Sharp pour les liens de navigation */
   --font-sans: var(--font-archivo-narrow);
   --font-label: var(--font-inter-tight);
+  --font-nav: "Asap Sharp", sans-serif;
   --font-heading: var(--font-sans);
 
   /* Couleurs de marque Kalslo */
@@ -21,7 +22,9 @@
 
   /* Couleurs fonctionnelles de statut (Trade State / obligations) */
   --color-status-settled: #00CE8E;
+  --color-status-active: #2F6FEB;
   --color-status-risk: #F5A623;
+  --color-status-proof: #EAB308;
   --color-status-blocked: #E5484D;
 
   --color-sidebar-ring: var(--sidebar-ring);
@@ -69,34 +72,24 @@
   --card-foreground: #1A1A1A;
   --popover: #FFFFFF;
   --popover-foreground: #1A1A1A;
-
-  /* Primary = mint, texte foncé dessus pour un bon contraste */
   --primary: #00CE8E;
   --primary-foreground: #014737;
-
   --secondary: #E9FBF4;
   --secondary-foreground: #014737;
-
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.45 0 0);
-
-  /* Accent = violet, réservé aux éléments qu'on veut vraiment faire ressortir */
   --accent: #8C52FF;
   --accent-foreground: #FFFFFF;
-
   --destructive: #E5484D;
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: #00CE8E;
-
   --chart-1: #00CE8E;
   --chart-2: #8C52FF;
   --chart-3: #014737;
   --chart-4: #F5A623;
   --chart-5: #E5484D;
-
   --radius: 0.5rem;
-
   --sidebar: #FFFFFF;
   --sidebar-foreground: #1A1A1A;
   --sidebar-primary: #00CE8E;

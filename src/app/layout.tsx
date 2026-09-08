@@ -29,6 +29,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Asap+Sharp:wght@500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className={`${archivoNarrow.variable} ${interTight.variable} antialiased`}>
         <Navbar />
         {children}

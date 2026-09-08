@@ -1,7 +1,11 @@
+export type EventCategory = "logistics" | "trade-finance" | "fx" | "payments" | "energy";
+
 export type TradeEvent = {
   title: string;
   status: "elevated" | "normal" | "resolved";
   type: string;
+  category: EventCategory;
+  corridorSlug: string;
   lastUpdated: string;
   sourceStatus: string;
   whatHappenedLabel: string;
@@ -23,6 +27,8 @@ export const eventsContent: Record<"en" | "fr", Record<string, TradeEvent>> = {
       title: "Strait of Hormuz: Route Disruption State",
       status: "elevated",
       type: "Shipping / Settlement",
+      category: "logistics",
+      corridorSlug: "europe-gulf",
       lastUpdated: "6 Sep 2026",
       sourceStatus: "Verified event",
       whatHappenedLabel: "What happened",
@@ -53,6 +59,8 @@ export const eventsContent: Record<"en" | "fr", Record<string, TradeEvent>> = {
       title: "Détroit d'Ormuz : état de perturbation de la route",
       status: "elevated",
       type: "Transport maritime / Règlement",
+      category: "logistics",
+      corridorSlug: "europe-gulf",
       lastUpdated: "6 sept. 2026",
       sourceStatus: "Événement vérifié",
       whatHappenedLabel: "Ce qui s'est passé",

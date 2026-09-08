@@ -4,6 +4,10 @@ export type TradeStage =
 
 export type ObligationStatus = "settled" | "pending" | "locked";
 
+export type SettlementState =
+  | "not_started" | "ready" | "partially_locked" | "blocked"
+  | "pending_proof" | "settling" | "settled" | "exception";
+
 export type TradeState = {
   corridorName: string;
   contractValueLabel: string;
@@ -14,7 +18,7 @@ export type TradeState = {
   participants: string[];
   currentStage: TradeStage;
   settlementStateLabel: string;
-  settlementState: string;
+  settlementState: SettlementState;
   obligationsLabel: string;
   obligations: { label: string; trigger: string; status: ObligationStatus }[];
   illustrativeNote: string;
@@ -46,7 +50,58 @@ export const stageLabels: Record<"en" | "fr", Record<TradeStage, string>> = {
   },
 };
 
+export const settlementStateLabels: Record<"en" | "fr", Record<SettlementState, string>> = {
+  en: {
+    not_started: "Not started",
+    ready: "Ready",
+    partially_locked: "Partially locked",
+    blocked: "Blocked",
+    pending_proof: "Pending proof",
+    settling: "Settling",
+    settled: "Settled",
+    exception: "Exception",
+  },
+  fr: {
+    not_started: "Non démarré",
+    ready: "Prêt",
+    partially_locked: "Partiellement verrouillé",
+    blocked: "Bloqué",
+    pending_proof: "Preuve en attente",
+    settling: "En cours de règlement",
+    settled: "Réglé",
+    exception: "Exception",
+  },
+};
+
 export const stageOrder = stages;
+
+// Point 17 du document : gris = proposed, bleu = in transit/active, mint = settled
+export function getStageColorClass(stage: TradeStage): string {
+  if (stage === "proposed") return "text-muted-foreground";
+  if (stage === "settled") return "text-kalslo-mint";
+  return "text-status-active";
+}
+
+// Couleurs pour les 8 états de règlement, alignées sur la palette du point 17
+export function getSettlementColorClass(state: SettlementState): string {
+  switch (state) {
+    case "settled":
+      return "text-kalslo-mint";
+    case "ready":
+    case "settling":
+      return "text-status-active";
+    case "partially_locked":
+      return "text-status-risk";
+    case "pending_proof":
+      return "text-status-proof";
+    case "blocked":
+    case "exception":
+      return "text-status-blocked";
+    case "not_started":
+    default:
+      return "text-muted-foreground";
+  }
+}
 
 export const tradeStatesContent: Record<"en" | "fr", Record<string, TradeState>> = {
   en: {
@@ -60,7 +115,7 @@ export const tradeStatesContent: Record<"en" | "fr", Record<string, TradeState>>
       participants: ["Buyer", "Seller", "Supplier", "Agent"],
       currentStage: "shipped",
       settlementStateLabel: "Settlement state",
-      settlementState: "Partially locked",
+      settlementState: "partially_locked",
       obligationsLabel: "Obligations",
       obligations: [
         { label: "30% deposit", trigger: "Order confirmed", status: "settled" },
@@ -84,7 +139,7 @@ export const tradeStatesContent: Record<"en" | "fr", Record<string, TradeState>>
       participants: ["Acheteur", "Vendeur", "Fournisseur", "Agent"],
       currentStage: "shipped",
       settlementStateLabel: "État du règlement",
-      settlementState: "Partiellement verrouillé",
+      settlementState: "partially_locked",
       obligationsLabel: "Obligations",
       obligations: [
         { label: "Acompte de 30%", trigger: "Commande confirmée", status: "settled" },
