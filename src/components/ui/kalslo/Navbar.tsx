@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Search, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useLocaleStore } from "@/store/useLocaleStore";
 import { FlagIcon } from "./FlagIcon";
+import { GlobalSearch } from "./GlobalSearch";
 
 const navLabels = {
   en: {
@@ -12,7 +13,6 @@ const navLabels = {
     tradeStates: "Trade States",
     signals: "Signals",
     learn: "Learn",
-    searchPlaceholder: "Search commerce",
     signIn: "Sign in",
   },
   fr: {
@@ -21,7 +21,6 @@ const navLabels = {
     tradeStates: "Trade States",
     signals: "Signals",
     learn: "Learn",
-    searchPlaceholder: "Rechercher",
     signIn: "Se connecter",
   },
 };
@@ -60,14 +59,7 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="hidden items-center gap-2 rounded-full bg-muted px-4 py-2 md:flex">
-            <Search className="h-4 w-4 text-muted-foreground" strokeWidth={2} />
-            <input
-              type="text"
-              placeholder={t.searchPlaceholder}
-              className="w-40 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
-            />
-          </div>
+          <GlobalSearch locale={locale} />
 
           <button
             onClick={toggleLocale}
