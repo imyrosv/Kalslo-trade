@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo_Narrow, Inter_Tight } from "next/font/google";
 import { Navbar } from "@/components/ui/kalslo/Navbar";
 import { OnboardingModal } from "@/components/ui/kalslo/OnboardingModal";
+import { Toaster } from "@/components/ui/toast";
 import "./globals.css";
 
 const archivoNarrow = Archivo_Narrow({
@@ -38,6 +39,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <OnboardingModal />
+        <Toaster />
       </body>
     </html>
   );
