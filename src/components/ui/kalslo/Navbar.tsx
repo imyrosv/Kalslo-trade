@@ -1,10 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { useLocaleStore } from "@/store/useLocaleStore";
 import { FlagIcon } from "./FlagIcon";
 import { GlobalSearch } from "./GlobalSearch";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
 const navLabels = {
   en: {
@@ -14,6 +21,7 @@ const navLabels = {
     signals: "Signals",
     learn: "Learn",
     signIn: "Sign in",
+    menuTitle: "Menu",
   },
   fr: {
     state: "State",
@@ -22,11 +30,13 @@ const navLabels = {
     signals: "Signals",
     learn: "Learn",
     signIn: "Se connecter",
+    menuTitle: "Menu",
   },
 };
 
 export function Navbar() {
   const { locale, toggleLocale } = useLocaleStore();
+  const [mobileOpen, setMobileOpen] = useState(false);
   const t = navLabels[locale];
 
   const links = [
@@ -79,11 +89,43 @@ export function Navbar() {
             {t.signIn}
           </button>
 
-          <button className="text-foreground" aria-label="Menu">
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="text-foreground lg:hidden"
+            aria-label="Menu"
+          >
             <Menu className="h-5 w-5" strokeWidth={1.75} />
           </button>
         </div>
       </div>
+
+      <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+        <SheetContent side="right">
+          <SheetHeader>
+            <SheetTitle>{t.menuTitle}</SheetTitle>
+          </SheetHeader>
+          <nav className="flex flex-col gap-1 px-4">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className="rounded-md px-3 py-3 font-nav text-base font-semibold uppercase text-foreground transition-colors hover:bg-muted"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="mt-2 border-t border-border pt-4">
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="w-full rounded-md px-3 py-3 text-left text-base font-medium text-foreground hover:bg-muted"
+              >
+                {t.signIn}
+              </button>
+            </div>
+          </nav>
+        </SheetContent>
+      </Sheet>
     </header>
   );
 }
