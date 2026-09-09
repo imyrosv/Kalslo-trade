@@ -6,6 +6,7 @@ import { useLocaleStore } from "@/store/useLocaleStore";
 import { eventsContent, type TradeEvent } from "@/lib/content/events";
 import { StatusPill } from "@/components/ui/kalslo/StatusPill";
 import { TrustBadge } from "@/components/ui/kalslo/TrustBadge";
+import { CopyLinkButton } from "@/components/ui/kalslo/CopyLinkButton";
 
 export default function EventPage({
   params,
@@ -37,12 +38,15 @@ export default function EventPage({
           ← {event.backLink}
         </Link>
 
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <StatusPill status={event.status} />
-          <TrustBadge variant="verified_event" locale={locale} />
-          <span className="font-label text-xs text-muted-foreground">
-            {event.type}
-          </span>
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <StatusPill status={event.status} />
+            <TrustBadge variant="verified_event" locale={locale} />
+            <span className="font-label text-xs text-muted-foreground">
+              {event.type}
+            </span>
+          </div>
+          <CopyLinkButton locale={locale} />
         </div>
 
         <h1 className="mt-4 text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
