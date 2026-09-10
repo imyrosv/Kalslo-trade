@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Menu, Moon, Sun } from "lucide-react";
 import { useLocaleStore } from "@/store/useLocaleStore";
+import { useThemeStore } from "@/store/useThemeStore";
 import { FlagIcon } from "./FlagIcon";
 import { GlobalSearch } from "./GlobalSearch";
 import {
@@ -22,6 +23,7 @@ const navLabels = {
     learn: "Learn",
     signIn: "Sign in",
     menuTitle: "Menu",
+    toggleTheme: "Toggle theme",
   },
   fr: {
     state: "State",
@@ -31,11 +33,13 @@ const navLabels = {
     learn: "Learn",
     signIn: "Se connecter",
     menuTitle: "Menu",
+    toggleTheme: "Changer de thème",
   },
 };
 
 export function Navbar() {
   const { locale, toggleLocale } = useLocaleStore();
+  const { theme, toggleTheme } = useThemeStore();
   const [mobileOpen, setMobileOpen] = useState(false);
   const t = navLabels[locale];
 
@@ -70,6 +74,18 @@ export function Navbar() {
 
         <div className="flex items-center gap-4">
           <GlobalSearch locale={locale} />
+
+          <button
+            onClick={toggleTheme}
+            className="text-foreground transition-opacity hover:opacity-70"
+            aria-label={t.toggleTheme}
+          >
+            {theme === "dark" ? (
+              <Sun className="h-4 w-4" strokeWidth={1.75} />
+            ) : (
+              <Moon className="h-4 w-4" strokeWidth={1.75} />
+            )}
+          </button>
 
           <button
             onClick={toggleLocale}
@@ -116,6 +132,17 @@ export function Navbar() {
               </Link>
             ))}
             <div className="mt-2 border-t border-border pt-4">
+              <button
+                onClick={toggleTheme}
+                className="flex w-full items-center gap-2 rounded-md px-3 py-3 text-left text-base font-medium text-foreground hover:bg-muted"
+              >
+                {theme === "dark" ? (
+                  <Sun className="h-4 w-4" strokeWidth={1.75} />
+                ) : (
+                  <Moon className="h-4 w-4" strokeWidth={1.75} />
+                )}
+                {t.toggleTheme}
+              </button>
               <button
                 onClick={() => setMobileOpen(false)}
                 className="w-full rounded-md px-3 py-3 text-left text-base font-medium text-foreground hover:bg-muted"
