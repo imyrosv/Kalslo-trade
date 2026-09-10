@@ -2,8 +2,9 @@
 
 import { use } from "react";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
 import { useLocaleStore } from "@/store/useLocaleStore";
-import { corridorsContent, type Corridor } from "@/lib/content/corridors";
+import { fetchCorridorBySlug, fetchEvents } from "@/lib/queries";
 import { StatusPill } from "@/components/ui/kalslo/StatusPill";
 
 export default function CorridorPage({
@@ -13,9 +14,28 @@ export default function CorridorPage({
 }) {
   const { slug } = use(params);
   const { locale } = useLocaleStore();
-  const corridor: Corridor | undefined = corridorsContent[locale][slug];
 
-  if (!corridor) {
+  const { data: corridor, isLoading, error } = useQuery({
+    queryKey: ["corridor", slug],
+    queryFn: () => fetchCorridorBySlug(slug),
+  });
+
+  const { data: allEvents } = useQuery({
+    queryKey: ["events"],
+    queryFn: fetchEvents,
+  });
+
+  const activeEvents = allEvents?.filter((e) => e.corridors?.slug === slug) ?? [];
+
+  if (isLoading) {
+    return (
+      <main className="mx-auto max-w-2xl px-6 py-24 text-center text-muted-foreground">
+        Loading...
+      </main>
+    );
+  }
+
+  if (error || !corridor) {
     return (
       <main className="mx-auto max-w-3xl px-6 py-24 text-center">
         <p className="text-muted-foreground">Corridor not found.</p>
@@ -28,55 +48,60 @@ export default function CorridorPage({
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-
       <article className="mx-auto max-w-2xl px-6 py-12 md:px-0">
         <Link
           href="/"
           className="font-label text-xs text-muted-foreground hover:text-foreground"
         >
-          ← {corridor.backLink}
+          ← {locale === "en" ? "Back to Kalslo State" : "Retour à Kalslo State"}
         </Link>
 
         <h1 className="mt-6 text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
-          {corridor.name}
+          {locale === "en" ? corridor.name_en : corridor.name_fr}
         </h1>
 
         <div className="mt-10 space-y-8 border-t border-border pt-10">
           <section>
             <p className="font-label text-xs text-muted-foreground">
-              {corridor.descriptionLabel}
+              {locale === "en" ? "About this corridor" : "À propos de ce corridor"}
             </p>
-            <p className="mt-2 text-foreground">{corridor.description}</p>
+            <p className="mt-2 text-foreground">
+              {locale === "en" ? corridor.description_en : corridor.description_fr}
+            </p>
           </section>
 
           <section>
             <p className="font-label text-xs text-muted-foreground">
-              {corridor.participantsLabel}
+              {locale === "en" ? "Typical participants" : "Participants typiques"}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
-              {corridor.participants.map((p: string) => (
-                <span
-                  key={p}
-                  className="rounded-full border border-border px-3 py-1 text-sm text-foreground"
-                >
-                  {p}
-                </span>
-              ))}
+              {(locale === "en" ? corridor.participants_en : corridor.participants_fr).map(
+                (p: string) => (
+                  <span
+                    key={p}
+                    className="rounded-full border border-border px-3 py-1 text-sm text-foreground"
+                  >
+                    {p}
+                  </span>
+                )
+              )}
             </div>
           </section>
 
           <section>
             <p className="font-label text-xs text-muted-foreground">
-              {corridor.activeEventsLabel}
+              {locale === "en" ? "Active events on this corridor" : "Événements actifs sur ce corridor"}
             </p>
             <div className="mt-3 space-y-3">
-              {corridor.activeEvents.map((event) => (
+              {activeEvents.map((event) => (
                 <Link
                   key={event.slug}
                   href={`/state/${event.slug}`}
                   className="flex items-center justify-between rounded-md border border-border p-4 transition-colors hover:border-kalslo-mint"
                 >
-                  <span className="text-foreground">{event.title}</span>
+                  <span className="text-foreground">
+                    {locale === "en" ? event.title_en : event.title_fr}
+                  </span>
                   <StatusPill status={event.status} />
                 </Link>
               ))}

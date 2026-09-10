@@ -3,6 +3,7 @@ import { Archivo_Narrow, Inter_Tight } from "next/font/google";
 import { Navbar } from "@/components/ui/kalslo/Navbar";
 import { OnboardingModal } from "@/components/ui/kalslo/OnboardingModal";
 import { Toaster } from "@/components/ui/toast";
+import { QueryProvider } from "@/components/QueryProvider";
 import "./globals.css";
 
 const archivoNarrow = Archivo_Narrow({
@@ -36,10 +37,12 @@ export default function RootLayout({
         />
       </head>
       <body className={`${archivoNarrow.variable} ${interTight.variable} antialiased`}>
-        <Navbar />
-        {children}
-        <OnboardingModal />
-        <Toaster />
+        <QueryProvider>
+          <Navbar />
+          {children}
+          <OnboardingModal />
+          <Toaster />
+        </QueryProvider>
       </body>
     </html>
   );

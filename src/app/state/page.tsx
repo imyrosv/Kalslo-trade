@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
 import { useLocaleStore } from "@/store/useLocaleStore";
-import { eventsContent, type EventCategory } from "@/lib/content/events";
+import { fetchEvents } from "@/lib/queries";
+import type { EventCategory } from "@/lib/content/events";
 import { emptyCategoryMessage } from "@/lib/content/categories";
 import { StatusPill } from "@/components/ui/kalslo/StatusPill";
 import { CategoryFilter } from "@/components/ui/kalslo/CategoryFilter";
@@ -12,10 +14,32 @@ import { CategoryIcon } from "@/components/ui/kalslo/CategoryIcon";
 export default function StateFeedPage() {
   const { locale } = useLocaleStore();
   const [activeCategory, setActiveCategory] = useState<EventCategory | "all">("all");
-  const events = eventsContent[locale];
-  const eventList = Object.entries(events).filter(
-    ([, event]) => activeCategory === "all" || event.category === activeCategory
-  );
+
+  const { data: events, isLoading, error } = useQuery({
+    queryKey: ["events"],
+    queryFn: fetchEvents,
+  });
+
+  const filteredEvents =
+    events?.filter(
+      (event) => activeCategory === "all" || event.category === activeCategory
+    ) ?? [];
+
+  if (isLoading) {
+    return (
+      <main className="mx-auto max-w-2xl px-6 py-24 text-center text-muted-foreground">
+        Loading...
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className="mx-auto max-w-2xl px-6 py-24 text-center text-destructive">
+        Error loading events: {(error as Error).message}
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -36,30 +60,30 @@ export default function StateFeedPage() {
         </div>
 
         <div className="mt-8 space-y-4">
-          {eventList.length === 0 && (
+          {filteredEvents.length === 0 && (
             <p className="py-12 text-center text-muted-foreground">
               {emptyCategoryMessage[locale]}
             </p>
           )}
 
-          {eventList.map(([slug, event]) => (
+          {filteredEvents.map((event) => (
             <Link
-              key={slug}
-              href={`/state/${slug}`}
+              key={event.slug}
+              href={`/state/${event.slug}`}
               className="group block rounded-md border border-border p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-kalslo-mint hover:shadow-md"
             >
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-start gap-3">
                   <CategoryIcon
-                    category={event.category}
+                    category={event.category as EventCategory}
                     className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground"
                   />
                   <div>
                     <p className="font-label text-xs text-muted-foreground">
-                      {event.type}
+                      {locale === "en" ? event.type_en : event.type_fr}
                     </p>
                     <h2 className="mt-1 text-lg font-semibold tracking-tight">
-                      {event.title}
+                      {locale === "en" ? event.title_en : event.title_fr}
                     </h2>
                   </div>
                 </div>
